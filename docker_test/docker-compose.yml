@@ -1,0 +1,22 @@
+services:
+  ollama:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.ollama
+    image: ollama
+    container_name: ollama
+    entrypoint: /tmp/run_ollama.sh
+    ports:
+      - 11434:11434
+    volumes:
+      - .:/app/
+      - ./ollama/ollama:/root/.ollama
+    pull_policy: always
+    tty: true
+    restart: always
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
